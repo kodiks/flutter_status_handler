@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:status_handler/src/status.dart';
 
 class WidgetStatusBuilder extends StatelessWidget {
-  final Status statusSetting;
+  final Status status;
   final Widget Function() onLoading;
   final Widget Function() onFocused;
   final Widget Function() onDone;
@@ -13,7 +13,7 @@ class WidgetStatusBuilder extends StatelessWidget {
 
   const WidgetStatusBuilder({
     Key key,
-    @required this.statusSetting,
+    @required this.status,
     this.onLoading,
     this.onFocused,
     this.onDone,
@@ -25,37 +25,37 @@ class WidgetStatusBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (statusSetting.loading) {
+    if (status.loading) {
       if (onLoading != null) {
         return onLoading();
       }
     }
-    if (statusSetting.focused) {
+    if (status.focused) {
       if (onFocused != null) {
         return onFocused();
       }
     }
-    if (statusSetting.done) {
+    if (status.done) {
       if (onDone != null) {
         return onDone();
       }
     }
-    if (statusSetting.showData) {
+    if (status.showData) {
       if (onShowData != null) {
         return onShowData();
       }
     }
-    if (statusSetting.showValidation) {
+    if (status.showValidation) {
       if (onShowValidation != null) {
         return onShowValidation();
       }
     }
-    if (statusSetting.showEmpty) {
+    if (status.showEmpty) {
       if (onEmpty != null) {
         return onEmpty();
       }
     }
-    if (statusSetting.showError) {
+    if (status.showError) {
       if (onError != null) {
         return onError();
       }
