@@ -1,6 +1,6 @@
 import 'package:status_handler/src/status_handler_manager.dart';
 
-class StatusHandlerMixin {
+mixin StatusHandlerMixin {
   StatusHandlerManager statusHandlerManager = StatusHandlerManager();
 
   void statusFocused({bool value}) {
