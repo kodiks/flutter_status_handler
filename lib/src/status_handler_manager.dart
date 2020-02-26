@@ -5,6 +5,7 @@ class StatusHandlerManager {
   RxCommand<Status, Status> statusCommand;
 
   RxCommand<bool, Status> focusedCommand;
+  RxCommand<bool, Status> showLoadingIndicatorCommand;
   RxCommand<void, Status> loadingCommand;
   RxCommand<void, Status> doneCommand;
   RxCommand<void, Status> showDataCommand;
@@ -23,6 +24,17 @@ class StatusHandlerManager {
       final Status _statusSetting = statusCommand.lastResult;
 
       _statusSetting.focused = value;
+      return _statusSetting;
+    })
+      ..listen((statusSetting) {
+        statusCommand(statusSetting);
+      });
+
+    //* Show Loading Indicator Command
+    showLoadingIndicatorCommand = RxCommand.createSync((value) {
+      final Status _statusSetting = statusCommand.lastResult;
+
+      _statusSetting.showLoadingIndicator = value;
       return _statusSetting;
     })
       ..listen((statusSetting) {

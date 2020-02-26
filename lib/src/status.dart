@@ -1,5 +1,6 @@
 class Status {
   bool focused;
+  bool showLoadingIndicator;
   bool loading;
   bool done;
   bool showData;
@@ -15,5 +16,6 @@ class Status {
     this.showValidation = false,
     this.showEmpty = false,
     this.showError = false,
+    this.showLoadingIndicator = false,
   });
 }
