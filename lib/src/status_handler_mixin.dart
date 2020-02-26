@@ -3,8 +3,12 @@ import 'package:status_handler/src/status_handler_manager.dart';
 mixin StatusHandlerMixin {
   StatusHandlerManager statusHandlerManager = StatusHandlerManager();
 
-  void statusFocused({bool value}) {
+  void setFocused({bool value}) {
     statusHandlerManager.focusedCommand(value);
+  }
+
+  void setShowLoadingIndicator({bool value}) {
+    statusHandlerManager.showLoadingIndicatorCommand(value);
   }
 
   void statusLoad() {
