@@ -5,7 +5,8 @@ import 'package:status_handler/src/status.dart';
 class WidgetStatusHandler extends StatefulWidget {
   final StatusHandlerManager manager;
   final Widget Function() onLoading;
-  final Widget Function() onFocused;
+  final Widget Function(bool) onFocused;
+  final Widget Function(bool) onShowLoadingIndicator;
   final Widget Function() onDone;
   final Widget Function() onShowData;
   final Widget Function() onShowValidation;
@@ -20,6 +21,7 @@ class WidgetStatusHandler extends StatefulWidget {
     this.builder,
     this.onLoading,
     this.onFocused,
+    this.onShowLoadingIndicator,
     this.onDone,
     this.onShowData,
     this.onShowValidation,
@@ -45,7 +47,12 @@ class _WidgetStatusHandlerState extends State<WidgetStatusHandler> {
           }
           if (status.focused) {
             if (widget.onFocused != null) {
-              return widget.onFocused();
+              return widget.onFocused(status.focused);
+            }
+          }
+          if (status.showLoadingIndicator) {
+            if (widget.onShowLoadingIndicator != null) {
+              return widget.onShowLoadingIndicator(status.showLoadingIndicator);
             }
           }
           if (status.done) {
