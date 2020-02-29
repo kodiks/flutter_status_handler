@@ -21,7 +21,7 @@ mixin StatusHandlerMixin {
     List<RxCommand> refreshStreamList,
   }) {
     //* Load
-    if (loadStreamList.isNotEmpty) {
+    if (loadStreamList != null) {
       this.loadStreamList = loadStreamList;
       for (final RxCommand stream in this.loadStreamList) {
         stream.listen(
@@ -33,7 +33,7 @@ mixin StatusHandlerMixin {
     }
 
     //* done
-    if (doneStreamList.isNotEmpty) {
+    if (doneStreamList != null) {
       this.doneStreamList = doneStreamList;
       for (final RxCommand stream in this.doneStreamList) {
         stream.listen(
@@ -45,7 +45,7 @@ mixin StatusHandlerMixin {
     }
 
     //* showData
-    if (showDataStreamList.isNotEmpty) {
+    if (showDataStreamList != null) {
       this.showDataStreamList = showDataStreamList;
       for (final RxCommand stream in this.showDataStreamList) {
         stream.listen(
@@ -57,7 +57,7 @@ mixin StatusHandlerMixin {
     }
 
     //* showEmpty
-    if (showEmptyStreamList.isNotEmpty) {
+    if (showEmptyStreamList != null) {
       this.showEmptyStreamList = showEmptyStreamList;
       for (final RxCommand stream in this.showEmptyStreamList) {
         stream.listen(
@@ -69,7 +69,7 @@ mixin StatusHandlerMixin {
     }
 
     //* showValidation
-    if (showValidationStreamList.isNotEmpty) {
+    if (showValidationStreamList != null) {
       this.showEmptyStreamList = showEmptyStreamList;
       for (final RxCommand stream in this.showValidationStreamList) {
         stream.listen(
@@ -81,7 +81,7 @@ mixin StatusHandlerMixin {
     }
 
     //* showError
-    if (showErrorStreamList.isNotEmpty) {
+    if (showErrorStreamList != null) {
       this.showErrorStreamList = showErrorStreamList;
       for (final RxCommand stream in this.showErrorStreamList) {
         stream.listen(
@@ -92,7 +92,7 @@ mixin StatusHandlerMixin {
       }
     }
     //* statusRefresh
-    if (refreshStreamList.isNotEmpty) {
+    if (refreshStreamList != null) {
       this.refreshStreamList = refreshStreamList;
       for (final RxCommand stream in this.refreshStreamList) {
         stream.listen(
