@@ -1,7 +1,94 @@
+import 'package:rx_command/rx_command.dart';
 import 'package:status_handler/src/status_handler_manager.dart';
 
 mixin StatusHandlerMixin {
   StatusHandlerManager statusHandlerManager = StatusHandlerManager();
+
+  void addStream({
+    List<RxCommand> loadStreamList,
+    List<RxCommand> doneStreamList,
+    List<RxCommand> showDataStreamList,
+    List<RxCommand> showEmptyStreamList,
+    List<RxCommand> showValidationStreamList,
+    List<RxCommand> showErrorStreamList,
+    List<RxCommand> refreshStreamList,
+  }) {
+    //* Load
+    if (loadStreamList.isNotEmpty) {
+      for (final RxCommand stream in loadStreamList) {
+        stream.listen(
+          (_) {
+            statusLoad();
+          },
+        );
+      }
+    }
+
+    //* done
+    if (doneStreamList.isNotEmpty) {
+      for (final RxCommand stream in doneStreamList) {
+        stream.listen(
+          (_) {
+            statusDone();
+          },
+        );
+      }
+    }
+
+    //* showData
+    if (showDataStreamList.isNotEmpty) {
+      for (final RxCommand stream in showDataStreamList) {
+        stream.listen(
+          (_) {
+            statusShowData();
+          },
+        );
+      }
+    }
+
+    //* showEmpty
+    if (showEmptyStreamList.isNotEmpty) {
+      for (final RxCommand stream in showEmptyStreamList) {
+        stream.listen(
+          (_) {
+            statusEmpty();
+          },
+        );
+      }
+    }
+
+    //* showValidation
+    if (showValidationStreamList.isNotEmpty) {
+      for (final RxCommand stream in showValidationStreamList) {
+        stream.listen(
+          (_) {
+            statusShowValidation();
+          },
+        );
+      }
+    }
+
+    //* showError
+    if (showErrorStreamList.isNotEmpty) {
+      for (final RxCommand stream in showErrorStreamList) {
+        stream.listen(
+          (_) {
+            statusError();
+          },
+        );
+      }
+    }
+    //* statusRefresh
+    if (refreshStreamList.isNotEmpty) {
+      for (final RxCommand stream in refreshStreamList) {
+        stream.listen(
+          (_) {
+            statusRefresh();
+          },
+        );
+      }
+    }
+  }
 
   void setFocused({bool value}) {
     statusHandlerManager.focusedCommand(value);
@@ -23,12 +110,12 @@ mixin StatusHandlerMixin {
     statusHandlerManager.showDataCommand();
   }
 
-  void statusShowValidation() {
-    statusHandlerManager.showValidationCommand();
-  }
-
   void statusEmpty() {
     statusHandlerManager.showEmptyCommand();
+  }
+
+  void statusShowValidation() {
+    statusHandlerManager.showValidationCommand();
   }
 
   void statusError() {
