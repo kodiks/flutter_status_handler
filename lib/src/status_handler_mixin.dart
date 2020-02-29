@@ -14,7 +14,7 @@ mixin StatusHandlerMixin {
     List<RxCommand> refreshStreamList,
   }) {
     //* Load
-    if (loadStreamList.isNotEmpty) {
+    if (loadStreamList != null) {
       for (final RxCommand stream in loadStreamList) {
         stream.listen(
           (_) {
@@ -25,7 +25,7 @@ mixin StatusHandlerMixin {
     }
 
     //* done
-    if (doneStreamList.isNotEmpty) {
+    if (doneStreamList != null) {
       for (final RxCommand stream in doneStreamList) {
         stream.listen(
           (_) {
@@ -36,7 +36,7 @@ mixin StatusHandlerMixin {
     }
 
     //* showData
-    if (showDataStreamList.isNotEmpty) {
+    if (showDataStreamList != null) {
       for (final RxCommand stream in showDataStreamList) {
         stream.listen(
           (_) {
@@ -47,7 +47,7 @@ mixin StatusHandlerMixin {
     }
 
     //* showEmpty
-    if (showEmptyStreamList.isNotEmpty) {
+    if (showEmptyStreamList != null) {
       for (final RxCommand stream in showEmptyStreamList) {
         stream.listen(
           (_) {
@@ -58,7 +58,7 @@ mixin StatusHandlerMixin {
     }
 
     //* showValidation
-    if (showValidationStreamList.isNotEmpty) {
+    if (showValidationStreamList != null) {
       for (final RxCommand stream in showValidationStreamList) {
         stream.listen(
           (_) {
@@ -69,7 +69,7 @@ mixin StatusHandlerMixin {
     }
 
     //* showError
-    if (showErrorStreamList.isNotEmpty) {
+    if (showErrorStreamList != null) {
       for (final RxCommand stream in showErrorStreamList) {
         stream.listen(
           (_) {
@@ -79,7 +79,7 @@ mixin StatusHandlerMixin {
       }
     }
     //* statusRefresh
-    if (refreshStreamList.isNotEmpty) {
+    if (refreshStreamList != null) {
       for (final RxCommand stream in refreshStreamList) {
         stream.listen(
           (_) {
