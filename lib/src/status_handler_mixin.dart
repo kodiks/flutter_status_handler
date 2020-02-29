@@ -3,6 +3,13 @@ import 'package:status_handler/src/status_handler_manager.dart';
 
 mixin StatusHandlerMixin {
   StatusHandlerManager statusHandlerManager = StatusHandlerManager();
+  List<RxCommand> loadStreamList;
+  List<RxCommand> doneStreamList;
+  List<RxCommand> showDataStreamList;
+  List<RxCommand> showEmptyStreamList;
+  List<RxCommand> showValidationStreamList;
+  List<RxCommand> showErrorStreamList;
+  List<RxCommand> refreshStreamList;
 
   void addStream({
     List<RxCommand> loadStreamList,
@@ -14,8 +21,9 @@ mixin StatusHandlerMixin {
     List<RxCommand> refreshStreamList,
   }) {
     //* Load
-    if (loadStreamList != null) {
-      for (final RxCommand stream in loadStreamList) {
+    if (loadStreamList.isNotEmpty) {
+      this.loadStreamList = loadStreamList;
+      for (final RxCommand stream in this.loadStreamList) {
         stream.listen(
           (_) {
             statusLoad();
@@ -25,8 +33,9 @@ mixin StatusHandlerMixin {
     }
 
     //* done
-    if (doneStreamList != null) {
-      for (final RxCommand stream in doneStreamList) {
+    if (doneStreamList.isNotEmpty) {
+      this.doneStreamList = doneStreamList;
+      for (final RxCommand stream in this.doneStreamList) {
         stream.listen(
           (_) {
             statusDone();
@@ -36,8 +45,9 @@ mixin StatusHandlerMixin {
     }
 
     //* showData
-    if (showDataStreamList != null) {
-      for (final RxCommand stream in showDataStreamList) {
+    if (showDataStreamList.isNotEmpty) {
+      this.showDataStreamList = showDataStreamList;
+      for (final RxCommand stream in this.showDataStreamList) {
         stream.listen(
           (_) {
             statusShowData();
@@ -47,8 +57,9 @@ mixin StatusHandlerMixin {
     }
 
     //* showEmpty
-    if (showEmptyStreamList != null) {
-      for (final RxCommand stream in showEmptyStreamList) {
+    if (showEmptyStreamList.isNotEmpty) {
+      this.showEmptyStreamList = showEmptyStreamList;
+      for (final RxCommand stream in this.showEmptyStreamList) {
         stream.listen(
           (_) {
             statusEmpty();
@@ -58,8 +69,9 @@ mixin StatusHandlerMixin {
     }
 
     //* showValidation
-    if (showValidationStreamList != null) {
-      for (final RxCommand stream in showValidationStreamList) {
+    if (showValidationStreamList.isNotEmpty) {
+      this.showEmptyStreamList = showEmptyStreamList;
+      for (final RxCommand stream in this.showValidationStreamList) {
         stream.listen(
           (_) {
             statusShowValidation();
@@ -69,8 +81,9 @@ mixin StatusHandlerMixin {
     }
 
     //* showError
-    if (showErrorStreamList != null) {
-      for (final RxCommand stream in showErrorStreamList) {
+    if (showErrorStreamList.isNotEmpty) {
+      this.showErrorStreamList = showErrorStreamList;
+      for (final RxCommand stream in this.showErrorStreamList) {
         stream.listen(
           (_) {
             statusError();
@@ -79,8 +92,9 @@ mixin StatusHandlerMixin {
       }
     }
     //* statusRefresh
-    if (refreshStreamList != null) {
-      for (final RxCommand stream in refreshStreamList) {
+    if (refreshStreamList.isNotEmpty) {
+      this.refreshStreamList = refreshStreamList;
+      for (final RxCommand stream in this.refreshStreamList) {
         stream.listen(
           (_) {
             statusRefresh();
