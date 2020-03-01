@@ -1,32 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:status_handler/src/status_handler_manager.dart';
-import 'package:status_handler/src/status.dart';
+
+import 'package:status_handler/src/widget_status_manager.dart';
 
 class WidgetStatusHandler extends StatefulWidget {
-  final StatusHandlerManager manager;
-  final Widget Function() onLoading;
-  final Widget Function(bool) onFocused;
-  final Widget Function(bool) onShowLoadingIndicator;
-  final Widget Function() onDone;
-  final Widget Function() onShowData;
-  final Widget Function() onShowValidation;
-  final Widget Function() onEmpty;
-  final Widget Function() onError;
+  final WidgetStatusManager manager;
 
-  final Widget Function(Status) builder;
+  final Widget Function(WidgetStatus) onLoading;
+  final Widget Function(WidgetStatus) onDone;
+  final Widget Function(WidgetStatus) onData;
+  final Widget Function(WidgetStatus) onEmpty;
+  final Widget Function(WidgetStatus) onValidation;
+  final Widget Function(WidgetStatus) onError;
+
+  final Widget Function(WidgetStatus) builder;
 
   const WidgetStatusHandler({
     Key key,
     @required this.manager,
-    this.builder,
     this.onLoading,
-    this.onFocused,
-    this.onShowLoadingIndicator,
     this.onDone,
-    this.onShowData,
-    this.onShowValidation,
+    this.onData,
     this.onEmpty,
+    this.onValidation,
     this.onError,
+    this.builder,
   }) : super(key: key);
   @override
   _WidgetStatusHandlerState createState() => _WidgetStatusHandlerState();
@@ -35,54 +32,50 @@ class WidgetStatusHandler extends StatefulWidget {
 class _WidgetStatusHandlerState extends State<WidgetStatusHandler> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Status>(
-        stream: widget.manager.statusCommand,
-        initialData: widget.manager.statusCommand.lastResult,
+    return StreamBuilder<WidgetStatus>(
+        stream: widget.manager.widgetStatusCommand,
+        initialData: widget.manager.widgetStatusCommand.lastResult,
         builder: (context, snapshot) {
-          final Status status = snapshot.data;
-          if (status.loading) {
-            if (widget.onLoading != null) {
-              return widget.onLoading();
-            }
-          }
-          if (status.focused) {
-            if (widget.onFocused != null) {
-              return widget.onFocused(status.focused);
-            }
-          }
-          if (status.showLoadingIndicator) {
-            if (widget.onShowLoadingIndicator != null) {
-              return widget.onShowLoadingIndicator(status.showLoadingIndicator);
-            }
-          }
-          if (status.done) {
-            if (widget.onDone != null) {
-              return widget.onDone();
-            }
-          }
-          if (status.showData) {
-            if (widget.onShowData != null) {
-              return widget.onShowData();
-            }
-          }
-          if (status.showValidation) {
-            if (widget.onShowValidation != null) {
-              return widget.onShowValidation();
-            }
-          }
-          if (status.showEmpty) {
-            if (widget.onEmpty != null) {
-              return widget.onEmpty();
-            }
-          }
-          if (status.showError) {
-            if (widget.onError != null) {
-              return widget.onError();
-            }
+          final WidgetStatus widgetSetting = snapshot.data;
+
+          switch (widgetSetting.contentStatus) {
+            case ContentStatus.loading:
+              if (widget.onLoading != null) {
+                return widget.onLoading(widgetSetting);
+              }
+              break;
+            case ContentStatus.done:
+              if (widget.onDone != null) {
+                return widget.onDone(widgetSetting);
+              }
+              break;
+            case ContentStatus.data:
+              if (widget.onData != null) {
+                return widget.onData(widgetSetting);
+              }
+              break;
+
+            case ContentStatus.empty:
+              if (widget.onEmpty != null) {
+                return widget.onEmpty(widgetSetting);
+              }
+              break;
+            case ContentStatus.validation:
+              if (widget.onValidation != null) {
+                return widget.onValidation(widgetSetting);
+              }
+              break;
+            case ContentStatus.error:
+              if (widget.onError != null) {
+                return widget.onError(widgetSetting);
+              }
+              break;
+
+            default:
           }
 
           if (widget.builder != null) {
-            return widget.builder(snapshot.data);
+            return widget.builder(widgetSetting);
           }
 
           return Container();
