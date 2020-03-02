@@ -18,7 +18,7 @@ class WidgetStatus {
   WidgetStatus({
     this.focused = false,
     this.floatLoading = false,
-    this.contentStatus = ContentStatus.done,
+    this.contentStatus = ContentStatus.loading,
   });
 }
 
