@@ -28,8 +28,8 @@ class WidgetStatusManager {
   RxCommand<bool, WidgetStatus> focusedCommand;
   RxCommand<bool, WidgetStatus> floatLoadingCommand;
 
-  RxCommand<ContentStatus, WidgetStatus> contentStatusCommand;
   RxCommand<ContentStatus, ContentStatus> lastStatusCommand;
+  RxCommand<ContentStatus, WidgetStatus> contentStatusCommand;
 
   WidgetStatusManager() {
     widgetStatusCommand = RxCommand.createSync((statusSetting) => statusSetting);
@@ -58,9 +58,16 @@ class WidgetStatusManager {
         widgetStatusCommand(statusSetting);
       });
 
+    lastStatusCommand = RxCommand.createSync((lastStatus) {
+      final _lastStatus = lastStatus ??= lastStatusCommand.lastResult ??= ContentStatus.done;
+      return _lastStatus;
+    })
+      ..listen((lastStatus) {
+        contentStatusCommand(lastStatus);
+      });
+
     //* Content Status Command
     contentStatusCommand = RxCommand.createSync((contentStatus) {
-      lastStatusCommand(contentStatus);
       final WidgetStatus _widgetSetting = widgetStatusCommand.lastResult;
 
       _widgetSetting.contentStatus = contentStatus;
@@ -68,14 +75,6 @@ class WidgetStatusManager {
     })
       ..listen((statusSetting) {
         widgetStatusCommand(statusSetting);
-      });
-
-    lastStatusCommand = RxCommand.createSync((lastStatus) {
-      final _lastStatus = lastStatus ??= lastStatusCommand.lastResult ??= ContentStatus.done;
-      return _lastStatus;
-    })
-      ..listen((lastStatus) {
-        contentStatusCommand(lastStatus);
       });
   }
 }

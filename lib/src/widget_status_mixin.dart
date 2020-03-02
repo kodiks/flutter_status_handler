@@ -131,27 +131,27 @@ mixin WidgetStatusMixin {
   //#region [purple]
 
   void statusLoad() {
-    widgetSettingManager.contentStatusCommand(ContentStatus.loading);
+    widgetSettingManager.lastStatusCommand(ContentStatus.loading);
   }
 
   void statusDone() {
-    widgetSettingManager.contentStatusCommand(ContentStatus.done);
+    widgetSettingManager.lastStatusCommand(ContentStatus.done);
   }
 
   void statusData() {
-    widgetSettingManager.contentStatusCommand(ContentStatus.data);
+    widgetSettingManager.lastStatusCommand(ContentStatus.data);
   }
 
   void statusEmpty() {
-    widgetSettingManager.contentStatusCommand(ContentStatus.empty);
+    widgetSettingManager.lastStatusCommand(ContentStatus.empty);
   }
 
   void statusValidation() {
-    widgetSettingManager.contentStatusCommand(ContentStatus.validation);
+    widgetSettingManager.lastStatusCommand(ContentStatus.validation);
   }
 
   void statusError() {
-    widgetSettingManager.contentStatusCommand(ContentStatus.error);
+    widgetSettingManager.lastStatusCommand(ContentStatus.error);
   }
 
   void statusRefresh() {
