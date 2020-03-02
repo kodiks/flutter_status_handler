@@ -2,7 +2,7 @@ import 'package:rx_command/rx_command.dart';
 import 'package:status_handler/src/widget_status_manager.dart';
 
 mixin WidgetStatusMixin {
-  WidgetStatusManager widgetSettingManager = WidgetStatusManager();
+  WidgetStatusManager widgetStatusManager = WidgetStatusManager();
 
   //* Content Status Stream Lists
   List<RxCommand> loadStreamList;
@@ -131,41 +131,41 @@ mixin WidgetStatusMixin {
   //#region [purple]
 
   void statusLoad() {
-    widgetSettingManager.lastStatusCommand(ContentStatus.loading);
+    widgetStatusManager.lastStatusCommand(ContentStatus.loading);
   }
 
   void statusDone() {
-    widgetSettingManager.lastStatusCommand(ContentStatus.done);
+    widgetStatusManager.lastStatusCommand(ContentStatus.done);
   }
 
   void statusData() {
-    widgetSettingManager.lastStatusCommand(ContentStatus.data);
+    widgetStatusManager.lastStatusCommand(ContentStatus.data);
   }
 
   void statusEmpty() {
-    widgetSettingManager.lastStatusCommand(ContentStatus.empty);
+    widgetStatusManager.lastStatusCommand(ContentStatus.empty);
   }
 
   void statusValidation() {
-    widgetSettingManager.lastStatusCommand(ContentStatus.validation);
+    widgetStatusManager.lastStatusCommand(ContentStatus.validation);
   }
 
   void statusError() {
-    widgetSettingManager.lastStatusCommand(ContentStatus.error);
+    widgetStatusManager.lastStatusCommand(ContentStatus.error);
   }
 
   void statusRefresh() {
-    widgetSettingManager.lastStatusCommand();
+    widgetStatusManager.lastStatusCommand();
   }
 
   void focused({bool value}) {
-    widgetSettingManager.focusedCommand(value);
-    widgetSettingManager.lastStatusCommand();
+    widgetStatusManager.focusedCommand(value);
+    widgetStatusManager.lastStatusCommand();
   }
 
   void floatLoading({bool value}) {
-    widgetSettingManager.floatLoadingCommand(value);
-    widgetSettingManager.lastStatusCommand();
+    widgetStatusManager.floatLoadingCommand(value);
+    widgetStatusManager.lastStatusCommand();
   }
 
   // #endregion
