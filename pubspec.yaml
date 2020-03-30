@@ -1,6 +1,6 @@
 name: status_handler
 description: This package has been developed to change the status of widgets and to give a look to the new situation.
-version: 1.0.3
+version: 1.1.0
 homepage: https://github.com/kodiks/flutter_status_handler.git
 
 environment:

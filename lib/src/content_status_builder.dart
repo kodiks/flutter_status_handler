@@ -5,6 +5,7 @@ class ContentStatusBuilder extends StatelessWidget {
   final ContentStatus contentStatus;
 
   final Widget Function() onLoading;
+  final Widget Function() onReady;
   final Widget Function() onDone;
   final Widget Function() onData;
   final Widget Function() onEmpty;
@@ -16,6 +17,7 @@ class ContentStatusBuilder extends StatelessWidget {
     @required this.contentStatus,
     this.onLoading,
     this.onDone,
+    this.onReady,
     this.onData,
     this.onEmpty,
     this.onValidation,
@@ -28,6 +30,11 @@ class ContentStatusBuilder extends StatelessWidget {
       case ContentStatus.loading:
         if (onLoading != null) {
           return onLoading();
+        }
+        break;
+      case ContentStatus.ready:
+        if (onReady != null) {
+          return onReady();
         }
         break;
       case ContentStatus.done:

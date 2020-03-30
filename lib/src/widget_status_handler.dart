@@ -6,6 +6,7 @@ class WidgetStatusHandler extends StatefulWidget {
   final WidgetStatusManager manager;
 
   final Widget Function(WidgetStatus) onLoading;
+  final Widget Function(WidgetStatus) onReady;
   final Widget Function(WidgetStatus) onDone;
   final Widget Function(WidgetStatus) onData;
   final Widget Function(WidgetStatus) onEmpty;
@@ -18,6 +19,7 @@ class WidgetStatusHandler extends StatefulWidget {
     Key key,
     @required this.manager,
     this.onLoading,
+    this.onReady,
     this.onDone,
     this.onData,
     this.onEmpty,
@@ -36,38 +38,43 @@ class _WidgetStatusHandlerState extends State<WidgetStatusHandler> {
         stream: widget.manager.widgetStatusCommand,
         initialData: widget.manager.widgetStatusCommand.lastResult,
         builder: (context, snapshot) {
-          final WidgetStatus widgetSetting = snapshot.data;
+          final WidgetStatus widgetStatus = snapshot.data;
 
-          switch (widgetSetting.contentStatus) {
+          switch (widgetStatus.contentStatus) {
             case ContentStatus.loading:
               if (widget.onLoading != null) {
-                return widget.onLoading(widgetSetting);
+                return widget.onLoading(widgetStatus);
+              }
+              break;
+            case ContentStatus.ready:
+              if (widget.onReady != null) {
+                return widget.onReady(widgetStatus);
               }
               break;
             case ContentStatus.done:
               if (widget.onDone != null) {
-                return widget.onDone(widgetSetting);
+                return widget.onDone(widgetStatus);
               }
               break;
             case ContentStatus.data:
               if (widget.onData != null) {
-                return widget.onData(widgetSetting);
+                return widget.onData(widgetStatus);
               }
               break;
 
             case ContentStatus.empty:
               if (widget.onEmpty != null) {
-                return widget.onEmpty(widgetSetting);
+                return widget.onEmpty(widgetStatus);
               }
               break;
             case ContentStatus.validation:
               if (widget.onValidation != null) {
-                return widget.onValidation(widgetSetting);
+                return widget.onValidation(widgetStatus);
               }
               break;
             case ContentStatus.error:
               if (widget.onError != null) {
-                return widget.onError(widgetSetting);
+                return widget.onError(widgetStatus);
               }
               break;
 
@@ -75,7 +82,7 @@ class _WidgetStatusHandlerState extends State<WidgetStatusHandler> {
           }
 
           if (widget.builder != null) {
-            return widget.builder(widgetSetting);
+            return widget.builder(widgetStatus);
           }
 
           return Container();
