@@ -32,6 +32,10 @@ class WidgetStatusManager {
   RxCommand<ContentStatus, ContentStatus> lastStatusCommand;
   RxCommand<ContentStatus, WidgetStatus> contentStatusCommand;
 
+  ContentStatus get currentContentStatus {
+    return widgetStatusCommand?.lastResult?.contentStatus ?? ContentStatus.ready;
+  }
+
   WidgetStatusManager() {
     widgetStatusCommand = RxCommand.createSync((widgetStatus) => widgetStatus)..execute(WidgetStatus());
 
@@ -58,7 +62,7 @@ class WidgetStatusManager {
       });
 
     lastStatusCommand = RxCommand.createSync((lastStatus) {
-      final _lastStatus = lastStatus ??= lastStatusCommand.lastResult ??= ContentStatus.done;
+      final _lastStatus = lastStatus ??= lastStatusCommand.lastResult ??= ContentStatus.ready;
       return _lastStatus;
     })
       ..listen((lastStatus) {
